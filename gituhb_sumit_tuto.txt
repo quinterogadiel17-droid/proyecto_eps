@@ -1,6 +1,16 @@
 1 git init
 2 git add .
 3 git commit -m "primer commit proyecto flask EPS"
-4 git remote add origin Link repositorio github
+4 git remote add origin link github
 5 git branch -M main
- git push -u origin main d
+ git push -u origin main
+
+
+ git config --global --add safe.directory "D:/SENA/IV trimestre/proyecto_EPS3.0"
+
+Actualizar datos
+git add .
+git commit -m "mensaje del cambio"
+git push
+
+pip freeze > requirements.txt
