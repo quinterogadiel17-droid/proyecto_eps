@@ -10,4 +10,5 @@ connection = mysql.connector.connect(
     database=os.getenv('DB_NAME'),
     ssl_ca="ca.pem", # Archivo del certificado de Aiven
     ssl_verify_cert=True
+    
 )
