@@ -1,0 +1,22 @@
+﻿CREATE DATABASE IF NOT EXISTS eps_citas;
+USE eps_citas;
+
+CREATE TABLE IF NOT EXISTS pacientes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    documento VARCHAR(15) UNIQUE NOT NULL,
+    nombre VARCHAR(80) NOT NULL,
+    apellido VARCHAR(80) NOT NULL,
+    telefono VARCHAR(20) NOT NULL,
+    correo VARCHAR(100) NOT NULL,
+    eps VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS citas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    documento VARCHAR(15) NOT NULL,
+    medico VARCHAR(100) NOT NULL,
+    tipo_cita VARCHAR(50) NOT NULL,
+    fecha DATE NOT NULL,
+    hora TIME NOT NULL,
+    direccion_eps VARCHAR(150) NOT NULL
+);

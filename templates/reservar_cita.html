@@ -1,0 +1,82 @@
+﻿{% extends "base.html" %}
+
+{% block content %}
+<h2 class="h4 mb-3">Reserva de Cita Médica</h2>
+<form method="post" class="card card-body shadow-sm">
+    <div class="row g-3">
+        <div class="col-md-4">
+            <label class="form-label">Documento del paciente</label>
+            <input type="text" name="documento" class="form-control" required />
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">Tipo de cita</label>
+            <select id="tipo_cita" name="tipo_cita" class="form-select" required>
+                <option value="">Selecciona...</option>
+                {% for tipo in tipos_cita %}
+                <option value="{{ tipo }}">{{ tipo }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-4 d-flex align-items-end">
+            <small id="estado_tipo" class="text-muted">Seleccione tipo de cita para autocompletar.</small>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">Médico asignado</label>
+            <input type="text" id="medico_mostrar" class="form-control" readonly disabled />
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Fecha disponible</label>
+            <input type="text" id="fecha_mostrar" class="form-control" readonly disabled />
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Hora disponible</label>
+            <input type="text" id="hora_mostrar" class="form-control" readonly disabled />
+        </div>
+        <div class="col-md-12">
+            <label class="form-label">Dirección de la EPS</label>
+            <input type="text" id="direccion_mostrar" class="form-control" readonly disabled />
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <button class="btn btn-main-alt" type="submit">Reservar cita</button>
+    </div>
+</form>
+
+<script>
+const tiposConfig = {{ tipos_config | tojson }};
+const tipoSelect = document.getElementById("tipo_cita");
+const medicoInput = document.getElementById("medico_mostrar");
+const fechaInput = document.getElementById("fecha_mostrar");
+const horaInput = document.getElementById("hora_mostrar");
+const direccionInput = document.getElementById("direccion_mostrar");
+const estadoTipo = document.getElementById("estado_tipo");
+
+function limpiarCampos() {
+    medicoInput.value = "";
+    fechaInput.value = "";
+    horaInput.value = "";
+    direccionInput.value = "";
+}
+
+tipoSelect.addEventListener("change", () => {
+    const tipo = tipoSelect.value;
+
+    if (!tipo || !tiposConfig[tipo]) {
+        limpiarCampos();
+        estadoTipo.textContent = "Seleccione tipo de cita para autocompletar.";
+        return;
+    }
+
+    const data = tiposConfig[tipo];
+    medicoInput.value = data.medico || "";
+    fechaInput.value = data.fecha_disponible || "";
+    horaInput.value = data.hora_disponible || "";
+    direccionInput.value = data.direccion_eps || "";
+    estadoTipo.textContent = "Datos cargados automáticamente.";
+});
+</script>
+{% endblock %}

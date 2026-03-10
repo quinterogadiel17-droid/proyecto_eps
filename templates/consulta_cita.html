@@ -1,0 +1,52 @@
+﻿{% extends "base.html" %}
+
+{% block content %}
+<h2 class="h4 mb-3">Consultar cita</h2>
+<form method="post" class="card card-body shadow-sm mb-4">
+    <div class="row g-3 align-items-end">
+        <div class="col-md-5">
+            <label class="form-label">Documento del paciente</label>
+            <input type="text" name="documento" class="form-control" value="{{ documento }}" required />
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-main" type="submit">Consultar</button>
+        </div>
+    </div>
+</form>
+
+{% if citas %}
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead class="table-light">
+            <tr>
+                <th>Paciente</th>
+                <th>Médico</th>
+                <th>Tipo</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Dirección EPS</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cita in citas %}
+            <tr>
+                <td>{{ cita.nombre }} {{ cita.apellido }}</td>
+                <td>{{ cita.medico }}</td>
+                <td>{{ cita.tipo_cita }}</td>
+                <td>{{ cita.fecha }}</td>
+                <td>{{ cita.hora }}</td>
+                <td>{{ cita.direccion_eps }}</td>
+                <td class="d-flex gap-1">
+                    <a class="btn btn-sm btn-outline-main" href="{{ url_for('editar_cita', cita_id=cita.id) }}">Editar</a>
+                    <form method="post" action="{{ url_for('eliminar_cita_route', cita_id=cita.id) }}" onsubmit="return confirm('¿Seguro que deseas eliminar esta cita?');">
+                        <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,19 @@
+﻿{% extends "base.html" %}
+
+{% block content %}
+<section class="hero-panel">
+    <div class="hero-overlay">
+        <h1>Consulte y Gestione su EPS</h1>
+        <p>Portal de apoyo para registro de pacientes y administración de citas médicas.</p>
+    </div>
+</section>
+
+<section class="card card-body mt-4 soft-card">
+    <h2 class="h5 mb-3 section-title">Accesos rápidos</h2>
+    <div class="d-flex flex-wrap gap-2">
+        <a href="{{ url_for('registro_paciente') }}" class="btn btn-main">Registrar paciente</a>
+        <a href="{{ url_for('reservar_cita') }}" class="btn btn-main-alt">Reservar cita</a>
+        <a href="{{ url_for('consultar_cita') }}" class="btn btn-outline-main">Consultar y actualizar</a>
+    </div>
+</section>
+{% endblock %}
