@@ -1,13 +1,13 @@
 ﻿import mysql.connector
-
-from config import Config
-
+import os # Importante para que funcione en internet
 
 def obtener_conexion():
     return mysql.connector.connect(
-        host=Config.DB_HOST,
-        port=Config.DB_PORT,
-        user=Config.DB_USER,
-        password=Config.DB_PASSWORD,
-        database=Config.DB_NAME,
+        # Aquí ponemos los datos que te dio Aiven
+        host=os.getenv('DB_HOST', 'localhost'), 
+        user=os.getenv('DB_USER', 'root'), 
+        password=os.getenv('DB_PASSWORD', ''), 
+        database=os.getenv('DB_NAME', 'sistema_votacion'),
+        port=os.getenv('DB_PORT', 3306)
     )
+    
